@@ -11,6 +11,15 @@ export const listStyles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15
   },
+  item2: {
+    marginVertical: 5,
+    padding: 10,
+    borderColor: "black",
+    borderWidth: 1,
+    height: 50,
+    alignItems: "center",
+    flexDirection: "row"
+  },
 });
 
 export const containerStyles = StyleSheet.create({

@@ -20,11 +20,12 @@ export const RecipeCreation = (props: Props) => {
 
   const [name, setName] = useState("");
   const [articles, setArticles] = useState<Array<Article>>([]);
+  const [quantity, setQuantity] = useState<number>(0);
   const [modal, setModal] = useState<Modals>(Modals.NONE);
   const dispatch = useDispatch();
 
   const validateRecipe = () => {
-    dispatch(createRecipe(new Recipe(name, articles)));
+    dispatch(createRecipe(new Recipe(name, articles, quantity)));
     props.onValidation?.();
   }
 
@@ -32,8 +33,6 @@ export const RecipeCreation = (props: Props) => {
     setArticles(articles);
     setModal(Modals.NONE);
   }
-
-  const products: Map<number, Product> = useSelector((state: RootState) => state.products.products);
   
   return (
     <View style={containerStyles.globalContainer}>
@@ -44,6 +43,9 @@ export const RecipeCreation = (props: Props) => {
         renderItem={article => <View><Text>{article.item.getName()} - {article.item.quantity}</Text></View>}
         keyExtractor={article => article.product.id.toString()}
       />
+
+      <Text>Quantity</Text>
+      <TextInput onChangeText={(value) => setQuantity(parseFloat(value))} />
 
       <Button title="Select articles" onPress={() => setModal(Modals.ARTICLE_SELECTOR)} />
       <Button title="VALIDATE RECIPE" onPress={validateRecipe} />

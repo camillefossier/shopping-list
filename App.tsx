@@ -8,6 +8,7 @@ import { createStore, combineReducers } from 'redux';
 import { recipesReducer, RecipesState } from './store/reducers/recipes';
 import { Provider } from 'react-redux';
 import { productsReducer, ProductsState } from './store/reducers/products';
+import { ShoppingListCreation } from './components/ShoppingListCreation';
 
 export type RootState = {
   recipes: RecipesState,
@@ -24,6 +25,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <View style={{ ...styles.container, ...containerStyles.globalContainer }}>
+        <ShoppingListCreation onValidate={console.log} />
         <Recipes />
         <StatusBar style="auto" />
       </View>

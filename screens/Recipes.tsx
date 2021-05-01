@@ -19,10 +19,8 @@ const Recipes = () => {
 
   const recipes: Map<number, Recipe> = useSelector((state: RootState) => state.recipes.recipes);
 
-  const [enteredRecipe, setEnteredRecipe] = useState("");
-
   const [currentModal, setCurrentModal] = useState<modals>(modals.NONE);
-  const [selectedRecipe, setSelectedRecipe] = useState<Recipe>(new Recipe("", []));
+  const [selectedRecipe, setSelectedRecipe] = useState<Recipe>(new Recipe("", [], 0));
 
   const onRecipePressHandler = (recipeId: number) => {
     const pressedRecipe = (recipes.get(recipeId));
@@ -32,18 +30,9 @@ const Recipes = () => {
     }
   };
 
-  const dispatch = useDispatch();
-
-  const onNewRecipeHandler = (name: string) => {
-    dispatch(createRecipe(new Recipe(name, [])));
-  }
-
   return (
     <>
       <View>
-        <TextInput onChangeText={setEnteredRecipe} />
-        <Button title="ADD" onPress={() => onNewRecipeHandler(enteredRecipe)} />
-        <Text>{recipes.size}</Text>
         <FlatList data={Array.from(recipes.values())}
           renderItem={recipe => <RecipeItem recipe={recipe.item} onPress={onRecipePressHandler.bind(this, recipe.item.id)} />}
           keyExtractor={item => item.id.toString()} />

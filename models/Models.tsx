@@ -41,16 +41,33 @@ export class Recipe implements Shoppable {
   id: number;
   name: string;
   ingredients: Article[];
-  constructor(name: string, ingredients: Article[], id: number = -1) {
+  quantity: number;
+  constructor(name: string, ingredients: Article[], quantity: number, id: number = -1) {
     this.id = id;
     this.name = name;
     this.ingredients = ingredients;
+    this.quantity = quantity;
   }
   getName(): string {
     return this.name;
   }
   getPrice(): number {
     return this.ingredients.map(i => i.getPrice()).reduce((a, b) => a + b);
+  }
+}
+
+export class RecipeArticles implements Shoppable {
+  recipe: Recipe;
+  quantity: number;
+  constructor(recipe: Recipe, quantity: number) {
+    this.recipe = recipe;
+    this.quantity = quantity;
+  }
+  getPrice(): number {
+    return this.quantity * this.recipe.getPrice() / this.recipe.quantity;
+  }
+  getName(): string {
+    return this.recipe.getName();
   }
 }
 

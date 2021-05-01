@@ -5,17 +5,13 @@ import { RootState } from '../App';
 import { Article, Product } from '../models/Models';
 import { createProduct } from '../store/actions/products';
 import { ProductsState } from '../store/reducers/products';
-import { containerStyles } from '../styles/Styles';
+import { containerStyles, listStyles } from '../styles/Styles';
 import { ProductCreation } from './ProductCreation';
+import { SelectableProduct } from './SelectableProduct';
 
 type Props = {
   initialSelection?: Array<Article>,
   onValidate?: (articles: Array<Article>) => void
-}
-
-type ProductItemProps = {
-  product: Product,
-  onSelect?: (article: Article) => void
 }
 
 type ArticleItemProps = {
@@ -23,44 +19,9 @@ type ArticleItemProps = {
   onRemove?: (article: Article) => void
 }
 
-const SelectableProduct = (props: ProductItemProps) => {
-
-  enum SelectionMode {
-    ARTICLE,
-    QUANTITY
-  }
-
-  const [selectionMode, setSelectionMode] = useState<SelectionMode>(SelectionMode.ARTICLE);
-  const [quantity, setQuantity] = useState(props.product.quantity);
-
-  const validate = () => {
-    setSelectionMode(SelectionMode.ARTICLE);
-    props.onSelect?.(new Article(props.product, quantity));
-  }
-
-  return (
-    <View>
-      {selectionMode === SelectionMode.ARTICLE ?
-        <TouchableOpacity style={styles.item} onPress={() => setSelectionMode(SelectionMode.QUANTITY)}>
-          <Text>{props.product.getName()}</Text>
-        </TouchableOpacity>
-        : <></>}
-      {selectionMode === SelectionMode.QUANTITY ?
-        <View style={styles.item}>
-          <Text>Quantity: </Text>
-          <TextInput keyboardType="number-pad" onChangeText={val => setQuantity(parseFloat(val))} />
-          <Button title="CANCEL" color="red" onPress={() => setSelectionMode(SelectionMode.ARTICLE)} />
-          <Button title="ADD" onPress={validate} />
-        </View>
-        : <></>}
-
-    </View>
-  )
-}
-
 const SelectedArticle = (props: ArticleItemProps) => {
   return (
-    <View style={styles.item}>
+    <View style={listStyles.item}>
       <Text>{props.article.product.getName()}</Text>
       <Text>{props.article.quantity}</Text>
       <Button title="X" color="red" onPress={() => props.onRemove?.(props.article)} />
@@ -145,15 +106,6 @@ export const ProductsSelector = (props: Props) => {
 }
 
 const styles = StyleSheet.create({
-  item: {
-    marginVertical: 5,
-    padding: 10,
-    borderColor: "black",
-    borderWidth: 1,
-    height: 50,
-    alignItems: "center",
-    flexDirection: "row"
-  },
   subContainer: {
     maxHeight: "50%",
     flexGrow: 1,
