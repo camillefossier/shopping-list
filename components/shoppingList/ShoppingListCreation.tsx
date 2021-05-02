@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { Button, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, FlatList, StyleSheet, TextInput, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import { RootState } from '../App';
-import { Product, Recipe, Searchable, Shoppable } from '../models/Models';
-import { SelectableProduct } from './SelectableProduct';
-import { SelectableRecipe } from './SelectableRecipe';
+import { RootState } from '../../App';
+import { Listable, Product, Recipe, Searchable } from '../../models/Models';
+import { SelectableProduct } from '../product/SelectableProduct';
+import { SelectableRecipe } from './../recipe/SelectableRecipe';
 
 function filterListByName<A extends Searchable>(list: Array<A>, value: string): Array<A> {
   return list.filter(a => a.getName().startsWith(value));
 }
 
 type Props = {
-  onValidate?: (shoppable: Array<Shoppable>) => void
+  onValidate?: (shoppable: Array<Listable>) => void
 }
 
 export const ShoppingListCreation = (props: Props) => {
@@ -24,7 +24,7 @@ export const ShoppingListCreation = (props: Props) => {
   const products = useSelector((state: RootState) => state.products.products);
   const recipes = useSelector((state: RootState) => state.recipes.recipes);
 
-  const [selected, setSelected] = useState<Array<Shoppable>>([]);
+  const [selected, setSelected] = useState<Array<Listable>>([]);
   const [filteredProducts, setFilteredProducts] = useState<Array<Product>>([]);
   const [filteredRecipes, setFilteredRecipes] = useState<Array<Recipe>>([]);
   const [tab, setTab] = useState<Tabs>(Tabs.PRODUCTS);
@@ -34,7 +34,7 @@ export const ShoppingListCreation = (props: Props) => {
     setFilteredRecipes(filterListByName(Array.from(recipes.values()), val));
   }
 
-  const select = (shoppable: Shoppable): void => {
+  const select = (shoppable: Listable): void => {
     setSelected([...selected, shoppable]);
   }
 

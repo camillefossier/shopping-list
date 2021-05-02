@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Button, FlatList, Modal, Text, TextInput, View } from 'react-native';
-import { Article, Product, Recipe } from '../models/Models';
-import { useDispatch, useSelector } from 'react-redux';
-import { createRecipe } from '../store/actions/recipes';
-import { RootState } from '../App';
-import { containerStyles } from '../styles/Styles';
-import { ProductsSelector } from './ProductsSelector';
+import { Article, Product, Recipe } from '../../models/Models';
+import { useDispatch } from 'react-redux';
+import { createRecipe } from '../../store/actions/recipes';
+import { containerStyles } from '../../styles/Styles';
+import { ProductsSelector } from '../product/ProductsSelector';
 
 type Props = {
   onValidation?: () => void
@@ -40,8 +39,8 @@ export const RecipeCreation = (props: Props) => {
       <TextInput onChangeText={setName} />
 
       <FlatList data={articles}
-        renderItem={article => <View><Text>{article.item.getName()} - {article.item.quantity}</Text></View>}
-        keyExtractor={article => article.product.id.toString()}
+        renderItem={article => <View><Text>{article.item.item.getName()} - {article.item.quantity}</Text></View>}
+        keyExtractor={article => article.item.id.toString()}
       />
 
       <Text>Quantity</Text>

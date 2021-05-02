@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { Recipe, RecipeArticles } from "../models/Models";
-import { listStyles } from "../styles/Styles";
+import { Recipe, RecipeAsArticle } from "../../models/Models";
+import { listStyles } from "../../styles/Styles";
 
 type RecipeItemProps = {
     recipe: Recipe,
-    onSelect?: (recipe: RecipeArticles) => void
+    onSelect?: (recipe: RecipeAsArticle) => void
   }
 
 export const SelectableRecipe = (props: RecipeItemProps) => {
@@ -20,7 +20,7 @@ export const SelectableRecipe = (props: RecipeItemProps) => {
   
     const validate = () => {
       setSelectionMode(SelectionMode.RECIPE);
-      props.onSelect?.(new RecipeArticles(props.recipe, quantity));
+      props.onSelect?.(new RecipeAsArticle(props.recipe, quantity));
     }
   
     return (

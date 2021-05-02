@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Button, FlatList, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Button, FlatList, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Recipe } from '../models/Models';
-import { RecipeItem } from '../components/RecipeItem';
-import { RecipeView } from '../components/RecipeView';
+import { RecipeItem } from '../components/recipe/RecipeItem';
+import { RecipeView } from '../components/recipe/RecipeView';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { createRecipe } from '../store/actions/recipes';
 import { RootState } from '../App';
 import { RecipesState } from '../store/reducers/recipes';
-import { RecipeCreation } from '../components/RecipeCreation';
+import { RecipeCreation } from '../components/recipe/RecipeCreation';
 
 enum modals {
   NONE,

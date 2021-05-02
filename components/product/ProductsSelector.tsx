@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Button, FlatList, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../App';
-import { Article, Product } from '../models/Models';
-import { createProduct } from '../store/actions/products';
-import { ProductsState } from '../store/reducers/products';
-import { containerStyles, listStyles } from '../styles/Styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../App';
+import { Article, Product } from '../../models/Models';
+import { createProduct } from '../../store/actions/products';
+import { containerStyles, listStyles } from '../../styles/Styles';
 import { ProductCreation } from './ProductCreation';
 import { SelectableProduct } from './SelectableProduct';
 
@@ -22,7 +21,7 @@ type ArticleItemProps = {
 const SelectedArticle = (props: ArticleItemProps) => {
   return (
     <View style={listStyles.item}>
-      <Text>{props.article.product.getName()}</Text>
+      <Text>{props.article.getName()}</Text>
       <Text>{props.article.quantity}</Text>
       <Button title="X" color="red" onPress={() => props.onRemove?.(props.article)} />
     </View>
@@ -42,15 +41,15 @@ export const ProductsSelector = (props: Props) => {
   const [modal, setModal] = useState<Modals>(Modals.NONE);
 
   const [selectedArticles, setSelectedArticles] = useState<Array<Article>>(props.initialSelection || []);
-  const selectedArticlesIds = new Set(selectedArticles.map(a => a.product.id));
+  const selectedArticlesIds = new Set(selectedArticles.map(a => a.getId()));
 
   const remainingProducts = [...products.values()].filter(p => !selectedArticlesIds.has(p.id));
 
   const [filteredProducts, setFilteredProducts] = useState<Array<Product>>(remainingProducts);
 
   const selectArticle = (article: Article) => {
-    if (selectedArticles.map(a => a.product.id).includes(article.product.id)) {
-      setSelectedArticles([...selectedArticles.filter(a => a.product.id != article.product.id), article]);
+    if (selectedArticles.map(a => a.getId()).includes(article.getId())) {
+      setSelectedArticles([...selectedArticles.filter(a => a.getId() != article.getId()), article]);
     } else {
       setSelectedArticles([...selectedArticles, article]);
     }
@@ -90,8 +89,8 @@ export const ProductsSelector = (props: Props) => {
         <View>
           <Button title="Close" onPress={() => setModal(Modals.NONE)} />
           <FlatList data={selectedArticles}
-            renderItem={(article) => <SelectedArticle article={article.item} onRemove={(article: Article) => setSelectedArticles(selectedArticles.filter(a => a.product.id !== article.product.id))} />}
-            keyExtractor={article => article.product.id.toString()} />
+            renderItem={(article) => <SelectedArticle article={article.item} onRemove={(article: Article) => setSelectedArticles(selectedArticles.filter(a => a.getId() !== article.getId()))} />}
+            keyExtractor={article => article.getId().toString()} />
         </View>
       </Modal>
 

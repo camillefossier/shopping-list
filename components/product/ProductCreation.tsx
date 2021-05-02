@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import { Product } from '../models/Models';
+import { Product } from '../../models/Models';
 
 type Props = {
   onValidate?: (product: Product) => void

@@ -17,7 +17,7 @@ export const recipesReducer = (state: RecipesState = initialState, action: Recip
       return {
         ...state,
         nextRecipeId: state.nextRecipeId + 1,
-        recipes: state.recipes.set(state.nextRecipeId, new Recipe(action.recipe.name, action.recipe.ingredients, state.nextRecipeId))
+        recipes: state.recipes.set(state.nextRecipeId, new Recipe(action.recipe.name, action.recipe.articles, state.nextRecipeId))
       }
   }
   return state;

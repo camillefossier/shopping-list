@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { Article, Product } from "../models/Models";
-import { listStyles } from "../styles/Styles";
+import { Article, Product } from "../../models/Models";
+import { listStyles } from "../../styles/Styles";
 
 type ProductItemProps = {
     product: Product,

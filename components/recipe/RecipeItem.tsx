@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, View, StyleSheet, Button, TouchableOpacity } from 'react-native';
-import { Recipe } from '../models/Models';
-import { listStyles } from '../styles/Styles';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Recipe } from '../../models/Models';
+import { listStyles } from '../../styles/Styles';
 
 type Props = {
   recipe: Recipe,

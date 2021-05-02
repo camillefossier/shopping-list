@@ -1,14 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Article, Product, Recipe } from './models/Models';
 import Recipes from './screens/Recipes';
 import { containerStyles } from './styles/Styles';
 import { createStore, combineReducers } from 'redux';
 import { recipesReducer, RecipesState } from './store/reducers/recipes';
 import { Provider } from 'react-redux';
 import { productsReducer, ProductsState } from './store/reducers/products';
-import { ShoppingListCreation } from './components/ShoppingListCreation';
+import { ShoppingListCreation } from './components/shoppingList/ShoppingListCreation';
 
 export type RootState = {
   recipes: RecipesState,
